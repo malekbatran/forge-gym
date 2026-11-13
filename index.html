@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forge Gym Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE occasion: a local gym's website, confident and physical
+   IDEA calibrated bumper plates: their red, blue, yellow and rubber black
+   PICTURE a loaded barbell on a squat rack, drawn large across the hero
+   COLOUR white / rubber black ground, plate red leads, plate blue supports, yellow marks ladies hours
+   TYPE Alexandria (display, Arabic+Latin) + IBM Plex Sans Arabic (text)
+   LAYOUT title and buttons across the top, barbell scene full width beneath; phone stacks the same */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#121214);--ink:light-dark(#141416,#f2f2f0);--soft:light-dark(#5b5b62,#a9a9b0);--panel:light-dark(#f3f3f1,#1c1c20);--line:light-dark(#e2e2de,#2c2c32);--red:#d7262e;--blue:#1d4fd8;--yel:#f5c518;--rub:#1b1b1e;--wa:#1faa59}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;overflow-x:clip}
+h1,h2,h3,.brand,.big{font-family:Alexandria,"IBM Plex Sans Arabic",sans-serif;letter-spacing:-.02em;line-height:1.1;margin:0}
+h2{font-size:clamp(28px,4vw,40px);text-wrap:balance}
+h3{font-size:20px}
+p{margin:0}
+a{color:inherit}
+img,svg{max-width:100%}
+html[lang=ar] .en,html[lang=en] .ar{display:none}
+.band{padding-block:clamp(36px,5vw,72px);padding-inline:max(5vw,16px)}
+.wrap{max-width:1240px;margin-inline:auto}
+.demo{background:var(--yel);color:#141416;padding:10px max(5vw,16px);font-size:15px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:center;text-align:center}
+.demo a{font-weight:600;white-space:nowrap}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;padding:12px max(5vw,16px);flex-wrap:wrap}
+.brand{font-size:22px;font-weight:800;display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand i{width:30px;height:30px;border-radius:50%;background:var(--red);box-shadow:inset 0 0 0 7px var(--rub),inset 0 0 0 10px var(--red);display:block}
+.links{display:flex;gap:18px;flex-wrap:wrap;margin-inline-start:auto}
+.links a{text-decoration:none;color:var(--soft);font-weight:500}
+.links a:hover{color:var(--ink)}
+.lang{min-height:44px;min-width:44px;padding:0 14px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;font:600 15px Alexandria,sans-serif;cursor:pointer}
+.lang:focus-visible,.btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hero{padding-bottom:0}
+.hero .top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px 48px;align-items:end}
+.hero h1{font-size:clamp(38px,6vw,64px);font-weight:800;text-wrap:balance}
+.hero p{font-size:17px;color:var(--soft);max-width:46ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;font:700 16px Alexandria,sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer}
+.btn.red{background:var(--red);color:#fff}
+.btn.red:hover{background:#b81d24}
+.btn.ghost{border-color:var(--ink);color:var(--ink)}
+.btn.wa{background:var(--wa);color:#fff}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.facts div{border-top:3px solid var(--red);padding-top:10px}
+.facts div:nth-child(2){border-color:var(--blue)}
+.facts div:nth-child(3){border-color:var(--yel)}
+.facts b{display:block;font:800 clamp(24px,3vw,34px) Alexandria,sans-serif;white-space:nowrap}
+.facts span{font-size:14px;color:var(--soft)}
+.scene{margin-top:32px;height:clamp(240px,34vw,420px);background:var(--panel);border-radius:22px 22px 0 0;overflow:hidden;position:relative}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 32px;margin-bottom:28px}
+.sec-head p{color:var(--soft);max-width:52ch}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.plan{border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.plan.pop{background:var(--rub);color:#f2f2f0;border-color:var(--rub)}
+.plan.pop .muted{color:#b9b9c0}
+.disc{width:44px;height:44px;border-radius:50%}
+.price{font:800 clamp(30px,3.4vw,40px) Alexandria,sans-serif;white-space:nowrap}
+.price small{font-size:15px;font-weight:500}
+.muted{color:var(--soft);font-size:15px}
+.plan ul{margin:0;padding-inline-start:20px;font-size:15px;display:grid;gap:4px;flex:1}
+.tag{align-self:flex-start;background:var(--yel);color:#141416;font-size:13px;font-weight:600;padding:3px 10px;border-radius:99px}
+.note{margin-top:16px;font-size:13px;color:var(--soft)}
+.dark{background:var(--rub);color:#f2f2f0}
+.sched{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
+.day h3{margin-bottom:10px;color:#f2f2f0}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:baseline;padding:14px 0;border-bottom:1px solid #34343a}
+.row time{font:700 26px Alexandria,sans-serif;white-space:nowrap;direction:ltr;unicode-bidi:isolate}
+.row b{display:block;font-weight:600}
+.row span{color:#b9b9c0;font-size:15px}
+.row.lad time{color:var(--yel)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:#b9b9c0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--yel);margin-inline-end:6px;vertical-align:middle}
+.coaches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.coach{background:var(--panel);border-radius:18px;padding:22px;display:grid;gap:10px}
+.av{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font:800 26px Alexandria,sans-serif;color:#fff}
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.card{background:var(--panel);border-radius:18px;padding:26px;display:grid;gap:14px;align-content:start}
+.hours{display:grid;gap:8px}
+.hours div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.hours span:last-child{white-space:nowrap;direction:ltr;unicode-bidi:isolate;font-weight:600}
+.join{background:var(--red);color:#fff;text-align:center}
+.join h2{font-size:clamp(30px,5vw,48px)}
+.join p{max-width:56ch;margin:14px auto 24px;color:#ffe3e4}
+.join .btn.wa{background:#fff;color:var(--red)}
+footer{padding:28px max(5vw,16px);font-size:14px;color:var(--soft);border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
+.num{direction:ltr;unicode-bidi:isolate;white-space:nowrap}
+@media(max-width:980px){.plans,.coaches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.hero .top,.sched,.visit{grid-template-columns:minmax(0,1fr)}.links{display:none}.lang{margin-inline-start:auto}}
+@media(max-width:520px){.plans,.coaches{grid-template-columns:minmax(0,1fr)}.facts b{font-size:22px}.row time{font-size:22px}}
+@media(prefers-reduced-motion:no-preference){.bar{animation:lift 3.2s ease-in-out infinite}@keyframes lift{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}}
+</style>
+</head>
+<body>
+<div class="demo">
+  <span class="ar">ده موقع تجريبي لجيم وهمي، معمول عشان تشوف ممكن موقع جيمك يبقى شكله إيه.</span>
+  <span class="en">This is a demo site for a made-up gym, built to show what your gym's website could look like.</span>
+  <a href="https://wa.me/201010146689?text=%D8%A3%D9%87%D9%84%D8%A7%D9%8B%20%D9%85%D8%A7%D9%84%D9%83%D8%8C%20%D8%B4%D9%81%D8%AA%20%D8%A7%D9%84%D8%AF%D9%8A%D9%85%D9%88%20%D9%88%D8%B9%D8%A7%D9%8A%D8%B2%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B2%D9%8A%20%D8%AF%D9%87%20%D9%84%D9%84%D8%AC%D9%8A%D9%85" target="_blank" rel="noopener"><span class="ar">عايز زيه؟ كلّم مالك</span><span class="en">Want one? Message Malek</span> <span class="num">01010146689</span></a>
+</div>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><i></i><span class="ar">فورج جيم</span><span class="en">Forge Gym</span></a>
+  <div class="links">
+    <a href="#plans"><span class="ar">الباقات</span><span class="en">Plans</span></a>
+    <a href="#schedule"><span class="ar">المواعيد</span><span class="en">Schedule</span></a>
+    <a href="#coaches"><span class="ar">المدربين</span><span class="en">Coaches</span></a>
+    <a href="#visit"><span class="ar">اللوكيشن</span><span class="en">Location</span></a>
+  </div>
+  <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+</div></nav>
+
+<header class="band hero" id="top"><div class="wrap">
+  <div class="top">
+    <div>
+      <h1><span class="ar">تمرّن بجد في قلب الشيخ زايد</span><span class="en">Train hard in the heart of Sheikh Zayed</span></h1>
+      <p style="margin-top:14px"><span class="ar">صالة حديد ١٢٠٠ متر، كلاسات يومية، ومواعيد خاصة للسيدات. اشترك في دقيقة على واتساب.</span><span class="en">A 1,200 m² free-weights floor, daily classes and dedicated ladies' hours. Join in a minute on WhatsApp.</span></p>
+      <div class="cta">
+        <a class="btn red" href="#plans"><span class="ar">شوف الباقات</span><span class="en">See plans</span></a>
+        <a class="btn ghost" href="#schedule"><span class="ar">مواعيد الكلاسات</span><span class="en">Class schedule</span></a>
+      </div>
+    </div>
+    <div class="facts">
+      <div><b class="num">1,200 m²</b><span class="ar">مساحة التمرين</span><span class="en">Training floor</span></div>
+      <div><b class="num">6–1 AM</b><span class="ar">مفتوح كل يوم</span><span class="en">Open daily</span></div>
+      <div><b>12</b><span class="ar">كوتش معتمد</span><span class="en">Certified coaches</span></div>
+    </div>
+  </div>
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a30"/><stop offset="1" stop-color="#18181c"/></linearGradient>
+        <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e9ee"/><stop offset=".5" stop-color="#9a9aa3"/><stop offset="1" stop-color="#5d5d66"/></linearGradient>
+        <g id="win"><rect width="120" height="150" rx="6" fill="#33333b"/><rect x="8" y="8" width="104" height="134" rx="3" fill="#3d3d47"/><path d="M8 142 L70 8 L112 8 L112 40 Z" fill="#46464f"/></g>
+      </defs>
+      <rect width="1200" height="420" fill="url(#wall)"/>
+      <use href="#win" x="70" y="40"/><use href="#win" x="230" y="40"/><use href="#win" x="850" y="40"/><use href="#win" x="1010" y="40"/>
+      <rect x="0" y="300" width="1200" height="120" fill="#101013"/>
+      <rect x="0" y="300" width="1200" height="4" fill="#2e2e35"/>
+      <rect x="380" y="330" width="440" height="60" fill="#d7262e" opacity=".9"/>
+      <rect x="380" y="330" width="440" height="6" fill="#ff5a60"/>
+      <!-- rack -->
+      <g fill="#26262c">
+        <rect x="300" y="70" width="26" height="250" rx="3"/><rect x="874" y="70" width="26" height="250" rx="3"/>
+        <rect x="300" y="64" width="600" height="18" rx="3"/>
+      </g>
+      <rect x="306" y="70" width="5" height="250" fill="#3a3a42"/><rect x="880" y="70" width="5" height="250" fill="#3a3a42"/>
+      <g fill="#46464f"><rect x="326" y="190" width="22" height="10"/><rect x="852" y="190" width="22" height="10"/></g>
+      <ellipse cx="600" cy="318" rx="420" ry="12" fill="#000" opacity=".35"/>
+      <g class="bar">
+        <rect x="150" y="176" width="900" height="12" rx="6" fill="url(#steel)"/>
+        <rect x="390" y="177" width="420" height="10" fill="#7d7d86" opacity=".45"/>
+        <!-- left plates -->
+        <g>
+          <rect x="250" y="76" width="34" height="212" rx="8" fill="#d7262e"/><rect x="250" y="76" width="8" height="212" rx="4" fill="#ff5a60"/>
+          <rect x="214" y="86" width="34" height="192" rx="8" fill="#1d4fd8"/><rect x="214" y="86" width="8" height="192" rx="4" fill="#5a83ff"/>
+          <rect x="182" y="104" width="30" height="156" rx="7" fill="#f5c518"/><rect x="182" y="104" width="7" height="156" rx="3" fill="#ffe27a"/>
+          <rect x="160" y="132" width="20" height="100" rx="5" fill="#1f9d55"/>
+          <rect x="286" y="168" width="16" height="28" rx="3" fill="#c9c9cf"/>
+        </g>
+        <!-- right plates -->
+        <g>
+          <rect x="916" y="76" width="34" height="212" rx="8" fill="#d7262e"/><rect x="916" y="76" width="8" height="212" rx="4" fill="#ff5a60"/>
+          <rect x="952" y="86" width="34" height="192" rx="8" fill="#1d4fd8"/><rect x="952" y="86" width="8" height="192" rx="4" fill="#5a83ff"/>
+          <rect x="988" y="104" width="30" height="156" rx="7" fill="#f5c518"/><rect x="988" y="104" width="7" height="156" rx="3" fill="#ffe27a"/>
+          <rect x="1020" y="132" width="20" height="100" rx="5" fill="#1f9d55"/>
+          <rect x="898" y="168" width="16" height="28" rx="3" fill="#c9c9cf"/>
+        </g>
+      </g>
+      <!-- dumbbell row -->
+      <g id="db"><rect x="0" y="0" width="12" height="26" rx="3" fill="#2f2f36"/><rect x="12" y="10" width="26" height="6" fill="#8d8d96"/><rect x="38" y="0" width="12" height="26" rx="3" fill="#2f2f36"/></g>
+      <use href="#db" x="60" y="372"/><use href="#db" x="130" y="372"/><use href="#db" x="200" y="372"/>
+      <use href="#db" x="950" y="372"/><use href="#db" x="1020" y="372"/><use href="#db" x="1090" y="372"/>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band" id="plans"><div class="wrap">
+  <div class="sec-head">
+    <h2><span class="ar">الباقات والأسعار</span><span class="en">Memberships and prices</span></h2>
+    <p><span class="ar">كل الباقات تشمل صالة الحديد والكارديو وكل الكلاسات الجماعية وقياس InBody أول الاشتراك.</span><span class="en">Every plan includes the weights floor, cardio, all group classes and an InBody scan when you join.</span></p>
+  </div>
+  <div class="plans" id="planGrid"></div>
+  <p class="note"><span class="ar">الأسعار والأسماء في الموقع ده أمثلة للعرض بس.</span><span class="en">Prices and names on this site are sample content for the demo.</span></p>
+</div></section>
+
+<section class="band dark" id="schedule"><div class="wrap">
+  <div class="sec-head">
+    <h2><span class="ar">مواعيد الكلاسات</span><span class="en">Class schedule</span></h2>
+    <p style="color:#b9b9c0"><span class="ar">الكلاسات ببلاش لكل المشتركين. احجز مكانك على واتساب قبلها بساعة.</span><span class="en">Classes are free for members. Book your spot on WhatsApp an hour before.</span></p>
+  </div>
+  <div class="sched" id="sched"></div>
+  <div class="legend"><span><i></i><span class="ar">مواعيد السيدات فقط</span><span class="en">Ladies-only sessions</span></span></div>
+</div></section>
+
+<section class="band" id="coaches"><div class="wrap">
+  <div class="sec-head">
+    <h2><span class="ar">الكوتشز</span><span class="en">Our coaches</span></h2>
+    <p><span class="ar">تدريب شخصي بخطة تمرين وتغذية متابَعة كل أسبوعين.</span><span class="en">Personal training with a workout and nutrition plan, reviewed every two weeks.</span></p>
+  </div>
+  <div class="coaches" id="coachGrid"></div>
+</div></section>
+
+<section class="band" id="visit" style="padding-top:0"><div class="wrap visit">
+  <div class="card">
+    <h3><span class="ar">مواعيد العمل</span><span class="en">Opening hours</span></h3>
+    <div class="hours">
+      <div><span class="ar">السبت – الخميس</span><span class="en">Saturday – Thursday</span><span>6:00 AM – 1:00 AM</span></div>
+      <div><span class="ar">الجمعة</span><span class="en">Friday</span><span>2:00 PM – 12:00 AM</span></div>
+      <div><span class="ar">صالة السيدات</span><span class="en">Ladies' hall</span><span>9:00 AM – 9:00 PM</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3><span class="ar">تعالى زورنا</span><span class="en">Come visit</span></h3>
+    <p><span class="ar">الحي العاشر، الشيخ زايد، الجيزة. باركينج مجاني قدام الجيم.</span><span class="en">10th District, Sheikh Zayed, Giza. Free parking in front of the gym.</span></p>
+    <div class="cta" style="margin-top:4px">
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Sheikh+Zayed+Giza" target="_blank" rel="noopener"><span class="ar">افتح على الخريطة</span><span class="en">Open in Maps</span></a>
+      <a class="btn wa" href="https://wa.me/201010146689" target="_blank" rel="noopener"><span class="ar">واتساب</span><span class="en">WhatsApp</span></a>
+    </div>
+  </div>
+</div></section>
+
+<section class="band join"><div class="wrap">
+  <h2><span class="ar">أول حصة عليك؟ لا، علينا.</span><span class="en">Your first session is on us</span></h2>
+  <p><span class="ar">ابعت لنا على واتساب واحجز يوم تجربة مجاني مع كوتش يعرّفك على المكان ويعملك خطة.</span><span class="en">Message us on WhatsApp to book a free trial day with a coach who shows you around and builds your plan.</span></p>
+  <a class="btn wa" href="https://wa.me/201010146689?text=%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%AD%D8%AC%D8%B2%20%D9%8A%D9%88%D9%85%20%D8%AA%D8%AC%D8%B1%D8%A8%D8%A9" target="_blank" rel="noopener"><span class="ar">احجز يوم التجربة</span><span class="en">Book a trial day</span></a>
+  <p style="margin:14px auto 0;font-size:14px">WhatsApp: <span class="num">01010146689</span></p>
+</div></section>
+
+<footer><div class="wrap">
+  <span><span class="ar">فورج جيم © 2026 · موقع تجريبي</span><span class="en">Forge Gym © 2026 · demo site</span></span>
+  <span><span class="ar">تصميم وتطوير: مالك · واتساب</span><span class="en">Designed and built by Malek · WhatsApp</span> <span class="num">01010146689</span></span>
+</div></footer>
+
+<script>
+{
+const wa = t => 'https://wa.me/201010146689?text=' + encodeURIComponent(t);
+const plans = [
+  {c:'#1f9d55', ar:'شهر', en:'1 month', p:'1,200', ar2:'مثالي تبدأ بيه', en2:'Good to start', fa:['صالة الحديد والكارديو','كل الكلاسات','قياس InBody'], fe:['Weights and cardio floor','All group classes','InBody scan']},
+  {c:'#f5c518', ar:'٣ شهور', en:'3 months', p:'3,200', ar2:'توفير ٤٠٠ جنيه', en2:'Save EGP 400', fa:['كل مميزات الشهر','٢ حصة كوتش','تجميد أسبوعين'], fe:['Everything in 1 month','2 coach sessions','2-week freeze']},
+  {c:'#d7262e', ar:'٦ شهور', en:'6 months', p:'5,800', ar2:'الأكثر طلباً', en2:'Most popular', pop:1, fa:['كل مميزات ٣ شهور','خطة تغذية','تجميد شهر','دعوة صديق ٣ أيام'], fe:['Everything in 3 months','Nutrition plan','1-month freeze','3-day guest pass']},
+  {c:'#1d4fd8', ar:'سنة', en:'12 months', p:'10,500', ar2:'أقل سعر للشهر', en2:'Lowest monthly price', fa:['كل مميزات ٦ شهور','٦ حصص كوتش','تيشيرت الجيم'], fe:['Everything in 6 months','6 coach sessions','Gym T-shirt']}
+];
+document.getElementById('planGrid').innerHTML = plans.map(p => `
+  <div class="plan${p.pop?' pop':''}">
+    <div class="disc" style="background:${p.c};box-shadow:inset 0 0 0 11px ${p.pop?'#2c2c32':'var(--panel)'},inset 0 0 0 14px ${p.c}"></div>
+    <div><h3><span class="ar">${p.ar}</span><span class="en">${p.en}</span></h3>${p.pop?'':`<span class="muted"><span class="ar">${p.ar2}</span><span class="en">${p.en2}</span></span>`}</div>
+    ${p.pop?`<span class="tag"><span class="ar">${p.ar2}</span><span class="en">${p.en2}</span></span>`:''}
+    <div class="price"><span class="num">${p.p}</span> <small><span class="ar">جنيه</span><span class="en">EGP</span></small></div>
+    <ul>${p.fa.map(f=>`<li class="ar">${f}</li>`).join('')}${p.fe.map(f=>`<li class="en">${f}</li>`).join('')}</ul>
+    <a class="btn ${p.pop?'red':'ghost'}" style="${p.pop?'':'border-color:currentColor'}" target="_blank" rel="noopener" href="${wa('عايز أشترك في باقة ' + p.ar)}"><span class="ar">اشترك على واتساب</span><span class="en">Join on WhatsApp</span></a>
+  </div>`).join('');
+
+const days = [
+  {ar:'السبت والاثنين والأربعاء', en:'Sat · Mon · Wed', s:[
+    ['7:00 AM','كروس فيت','CrossFit','كوتش عمر','Coach Omar'],
+    ['10:00 AM','زومبا','Zumba','كوتش منة','Coach Menna',1],
+    ['12:00 PM','بيلاتس','Pilates','كوتش سلمى','Coach Salma',1],
+    ['7:00 PM','قوة وتضخيم','Strength & hypertrophy','كوتش كريم','Coach Karim'],
+    ['9:00 PM','كيك بوكسينج','Kickboxing','كوتش يوسف','Coach Youssef']]},
+  {ar:'الأحد والثلاثاء والخميس', en:'Sun · Tue · Thu', s:[
+    ['7:00 AM','HIIT','HIIT','كوتش عمر','Coach Omar'],
+    ['11:00 AM','تونينج','Toning','كوتش منة','Coach Menna',1],
+    ['5:00 PM','كلاس أطفال ٨–١٤','Kids 8–14','كوتش يوسف','Coach Youssef'],
+    ['8:00 PM','كروس فيت','CrossFit','كوتش كريم','Coach Karim'],
+    ['8:00 PM','HIIT سيدات','Ladies HIIT','كوتش سلمى','Coach Salma',1]]}
+];
+document.getElementById('sched').innerHTML = days.map(d => `
+  <div class="day"><h3><span class="ar">${d.ar}</span><span class="en">${d.en}</span></h3>
+  ${d.s.map(r => `<div class="row${r[5]?' lad':''}"><time>${r[0]}</time><div><b><span class="ar">${r[1]}</span><span class="en">${r[2]}</span></b><span><span class="ar">${r[3]}</span><span class="en">${r[4]}</span></span></div></div>`).join('')}
+  </div>`).join('');
+
+const coaches = [
+  {i:'ع', ie:'O', c:'#d7262e', ar:'عمر حسن', en:'Omar Hassan', ra:'كروس فيت وتخسيس', re:'CrossFit and fat loss'},
+  {i:'م', ie:'M', c:'#1d4fd8', ar:'منة عادل', en:'Menna Adel', ra:'كلاسات السيدات وزومبا', re:'Ladies classes and Zumba'},
+  {i:'ك', ie:'K', c:'#1b1b1e', ar:'كريم سامي', en:'Karim Samy', ra:'قوة وبناء عضل', re:'Strength and muscle building'},
+  {i:'س', ie:'S', c:'#1f9d55', ar:'سلمى فؤاد', en:'Salma Fouad', ra:'بيلاتس وتأهيل إصابات', re:'Pilates and injury rehab'}
+];
+document.getElementById('coachGrid').innerHTML = coaches.map(c => `
+  <div class="coach"><div class="av" style="background:${c.c}"><span class="ar">${c.i}</span><span class="en">${c.ie}</span></div>
+  <h3><span class="ar">${c.ar}</span><span class="en">${c.en}</span></h3>
+  <span class="muted"><span class="ar">${c.ra}</span><span class="en">${c.re}</span></span>
+  <a class="btn ghost" style="min-height:44px;font-size:15px;border-color:var(--line)" target="_blank" rel="noopener" href="${wa('عايز أحجز تدريب شخصي مع ' + c.ar)}"><span class="ar">احجز تدريب شخصي</span><span class="en">Book personal training</span></a></div>`).join('');
+
+const btn = document.getElementById('lang'), root = document.documentElement;
+btn.addEventListener('click', () => {
+  const ar = root.lang === 'ar';
+  root.lang = ar ? 'en' : 'ar';
+  root.dir = ar ? 'ltr' : 'rtl';
+  btn.textContent = ar ? 'عربي' : 'EN';
+  document.title = ar ? 'Forge Gym Demo' : 'Forge Gym Demo';
+});
+}
+</script>
+</body>
+</html>
